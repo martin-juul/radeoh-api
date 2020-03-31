@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be0019fb84a2bbc10a37c5a5c1ab009d",
+    "content-hash": "b0bc4c96ae5acacdea4138ad7bdad835",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5253,6 +5253,59 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "melihovv/laravel-package-generator",
+            "version": "7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/melihovv/laravel-package-generator.git",
+                "reference": "fadabac6562967213316231e702585bd6c5cb1e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/melihovv/laravel-package-generator/zipball/fadabac6562967213316231e702585bd6c5cb1e0",
+                "reference": "fadabac6562967213316231e702585bd6c5cb1e0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6.0|^7.0",
+                "illuminate/container": "^6.0|^7.0",
+                "illuminate/filesystem": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "illuminate/view": "^6.0|^7.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Melihovv\\LaravelPackageGenerator\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Melihovv\\LaravelPackageGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Melihov",
+                    "email": "amelihovv@ya.ru"
+                }
+            ],
+            "description": "A laravel package generator",
+            "keywords": [
+                "generator",
+                "laravel",
+                "package"
+            ],
+            "time": "2020-03-07T17:49:09+00:00"
         },
         {
             "name": "mockery/mockery",
