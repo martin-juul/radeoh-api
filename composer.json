@@ -21,7 +21,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "sentry/sentry-laravel": "^1.7",
-        "spatie/enum": "^2.3"
+        "spatie/enum": "^2.3",
+        "vyuldashev/laravel-openapi": "^0.22.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
