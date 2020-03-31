@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: radeoh-postgres
+    image: postgres:12-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=radeoh
+      - POSTGRES_PASSWORD=secret
+
+
+  redis:
+    container_name: radeoh-redis
+    image: redis:5-alpine
+    restart: always
+    ports:
+      - 6379:6379
+
+  mailhog:
+    container_name: radeoh-mailhog
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
