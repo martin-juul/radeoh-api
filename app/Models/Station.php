@@ -19,9 +19,10 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AbstractModel disableCache()
- * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Station newModelQuery()
- * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Station newQuery()
- * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Station query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station findSimilarSlugs($attribute, $config, $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereCountryCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereGuideId($value)
