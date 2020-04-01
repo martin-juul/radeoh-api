@@ -14,20 +14,32 @@ class CreateActionEventsTable extends Migration
     public function up()
     {
         Schema::create('action_events', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('batch_id', 36);
-            $table->unsignedBigInteger('user_id')->index();
-            $table->string('name');
-            $table->string('actionable_type');
-            $table->unsignedBigInteger('actionable_id');
-            $table->string('target_type');
-            $table->unsignedBigInteger('target_id');
-            $table->string('model_type');
-            $table->unsignedBigInteger('model_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->text('batch_id');
+
+            $table->uuid('user_id')->index();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->deferrable()
+                ->cascadeOnDelete();
+
+            $table->text('name');
+            $table->text('actionable_type');
+            $table->uuid('actionable_id');
+
+            $table->text('target_type');
+            $table->uuid('target_id');
+
+            $table->text('model_type');
+            $table->uuid('model_id')->nullable();
+
             $table->text('fields');
-            $table->string('status', 25)->default('running');
-            $table->text('exception');
-            $table->timestamps();
+
+            $table->text('status')->default('running');
+
+            $table->jsonb('exception');
+
+            $table->timestampsTz();
 
             $table->index(['actionable_type', 'actionable_id']);
             $table->index(['batch_id', 'model_type', 'model_id']);

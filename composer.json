@@ -9,6 +9,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-redis": "*",
+        "cviebrock/eloquent-sluggable": "^7.0",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -25,6 +26,8 @@
         "vyuldashev/laravel-openapi": "^0.22.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "melihovv/laravel-package-generator": "^7.0",
@@ -49,6 +52,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "database/migration_helpers.php"
         ]
     },
     "autoload-dev": {

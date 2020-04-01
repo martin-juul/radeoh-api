@@ -14,13 +14,14 @@ class CreateFailedJobsTable extends Migration
     public function up()
     {
         Schema::create('failed_jobs', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->text('connection');
             $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->jsonb('payload');
+            $table->jsonb('exception');
+            $table->timestampTz('failed_at')->useCurrent();
         });
+        set_uuid_generate('failed_jobs');
     }
 
     /**
