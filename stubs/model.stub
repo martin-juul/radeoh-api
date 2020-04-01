@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\AbstractModel;
 
 class {{ class }} extends AbstractModel
 {
