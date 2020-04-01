@@ -1,10 +1,16 @@
 /node_modules
+
 /public/hot
 /public/storage
+
 /public/css/*.css
 /public/css/*.css.map
+!/public/css/.gitkeep
+
 /public/js/app.js
 /public/js/app.js.map
+!/public/js/.gitkeep
+
 /storage/*.key
 /vendor
 .env
