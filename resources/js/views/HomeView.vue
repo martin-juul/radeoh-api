@@ -1,57 +1,57 @@
 <template>
-    <v-app id="inspire">
-        <!-- sidebar -->
-
-        <station-sidebar></station-sidebar>
-
+    <v-app>
         <v-app-bar
             app
             clipped-left
+            color="#000"
+            flat
+            dense
         >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>Radeoh</v-toolbar-title>
         </v-app-bar>
+        <!-- Sizes your content based upon application components -->
+        <v-content style="padding: 0 !important;">
 
-        <!--<v-content>
-            <v-container
-                class="fill-height"
-                fluid
-            >
-                <v-row
-                    align="center"
-                    justify="center"
-                >
-                    <vue-audio file="http://live-icy.dr.dk/A/A03H.mp3"></vue-audio>
-                </v-row>
+            <!-- Provides the application the proper gutter -->
+            <v-container fluid>
+
+                <!-- If using vue-router -->
+                <station-sidebar></station-sidebar>
             </v-container>
-        </v-content>-->
 
+            <bottom-player-ui></bottom-player-ui>
 
-        <!--<v-footer app>
-             <span>&copy; Martin Juul</span>
-         </v-footer>-->
+            <v-spacer></v-spacer>
+        </v-content>
     </v-app>
 </template>
 
 <script>
     import VueAudio from '../components/AudioPlayer';
     import StationSidebar from '../components/StationSidebar';
+    import BottomPlayerUi from '../components/BottomPlayerUI';
 
     export default {
-        props: {
-            source: String,
-        },
+        data: () => ({
+
+        }),
+
         components: {
+            BottomPlayerUi,
             StationSidebar,
             VueAudio,
         },
 
-        data: () => ({
-            drawer: null,
-        }),
+        methods: {
+
+        },
 
         created() {
             this.$vuetify.theme.dark = true;
         },
+
+        mounted() {
+            // this.init();
+        }
     };
 </script>

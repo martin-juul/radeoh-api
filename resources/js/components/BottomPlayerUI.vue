@@ -1,34 +1,66 @@
 <template>
-    <v-card style="text-align: center">
-        <v-card-text>
+    <div class="text-center">
+        <v-bottom-sheet
+            persistent
+            hide-overlay
+            :value="true"
+        >
+            <v-card tile>
+                <v-progress-linear
+                    :value="currentTime"
+                    class="my-0"
+                    height="3"
+                ></v-progress-linear>
 
-            <v-btn outlined icon class="ma-2" :color="color" @click.native="playing ? pause() : play()"
-                   :disabled="!loaded">
-                <v-icon v-if="!playing || paused">play_arrow</v-icon>
-                <v-icon v-else>pause</v-icon>
-            </v-btn>
+                <v-list v-if="station && station.image !== undefined">
+                    <v-list-item>
+                        <v-list-item-avatar v-if="station.image">
+                            <v-img :src="station.image"></v-img>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>{{ station.title }} | <span>{{ this.nowPlaying }}</span>
+                            </v-list-item-title>
+                        </v-list-item-content>
 
-            <v-btn outlined icon class="ma-2" :color="color" @click.native="stop()" :disabled="!loaded">
-                <v-icon>stop</v-icon>
-            </v-btn>
+                        <v-spacer></v-spacer>
 
-            <v-btn outlined icon class="ma-2" :color="color" @click.native="mute()" :disabled="!loaded">
-                <v-icon v-if="!isMuted">volume_down</v-icon>
-                <v-icon v-else>volume_mute</v-icon>
-            </v-btn>
+                        <v-btn outlined icon class="ma-2" :color="color" @click.native="playing ? pause() : play()"
+                               :disabled="!loaded">
+                            <v-icon v-if="!playing || paused">play_arrow</v-icon>
+                            <v-icon v-else>pause</v-icon>
+                        </v-btn>
 
-            <!-- <v-progress-linear v-model="percentage" height="5" style="margin-top: 15px; margin-bottom: 15px;"
-                                @click.native="setPosition()" :disabled="!loaded"></v-progress-linear>
-             <p>{{ currentTime }} / {{ duration }}</p>-->
-        </v-card-text>
-        <audio id="player" ref="player" v-on:ended="ended" v-on:canplay="canPlay" :src="file"></audio>
-    </v-card>
+                        <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
+                            <v-btn icon>
+                                <v-icon>pause</v-icon>
+                            </v-btn>
+                        </v-list-item-icon>
+
+                    </v-list-item>
+                </v-list>
+            </v-card>
+
+            <template v-if="station && station.streams !== undefined">
+                <audio
+                    id="player"
+                    ref="player"
+                    v-on:ended="ended"
+                    v-on:canplay="canPlay"
+                    :src="getStream()"></audio>
+            </template>
+
+        </v-bottom-sheet>
+    </div>
 </template>
+
 <script>
+    import axios from '../modules/axios';
+    import { mapGetters, mapState } from 'vuex';
+
     const formatTime = second => new Date(second * 1000).toISOString().substr(11, 8);
 
     export default {
-        name: 'vuetify-audio',
+        name: 'bottom-player-ui',
         props: {
             file: {
                 type: String,
@@ -57,11 +89,6 @@
                 default: false,
             },
         },
-        computed: {
-            duration: function () {
-                return this.audio ? formatTime(this.totalDuration) : '';
-            },
-        },
         data() {
             return {
                 firstPlay: true,
@@ -73,10 +100,40 @@
                 currentTime: '00:00:00',
                 audio: undefined,
                 totalDuration: 0,
+                nowPlaying: '',
+                interval: null,
             };
         },
-
+        computed: {
+            ...mapState({
+                station: state => state.station,
+            }),
+        },
         methods: {
+            getStream() {
+                if (!this.$store.state.station) {
+                    return false;
+                }
+
+                const stream = this.$store.state.station.streams[0];
+
+                if (stream) {
+                    return stream.toString();
+                }
+            },
+
+            getNowPlaying() {
+                axios.get('/api/nowplaying', {
+                    params: {
+                        slug: this.$store.state.station.slug,
+                    },
+                }).then((res) => {
+                    console.debug('getNowPlaying', res);
+                    this.nowPlaying = res.data.track;
+                })
+                    .catch(console.error);
+            },
+
             stop() {
                 this.audio.pause();
                 this.paused = true;
@@ -85,7 +142,12 @@
             },
             play() {
                 if (this.playing) return;
-                this.audio.play().then(_ => this.playing = true);
+                this.audio.play().then(_ => {
+                    this.nowPlaying = true;
+                    this.interval = setInterval(() => {
+                        this.getNowPlaying();
+                    }, 5000);
+                });
                 this.paused = false;
             },
             pause() {
@@ -116,7 +178,6 @@
                 }
             },
             _handlePlayingUI: function (e) {
-                console.debug('_handlePlayingUI', e);
                 this.percentage = this.audio.currentTime / this.audio.duration * 100;
                 this.currentTime = formatTime(this.audio.currentTime);
                 this.playing = true;
@@ -156,7 +217,7 @@
             this.audio.removeEventListener('pause', this._handlePlayPause);
             this.audio.removeEventListener('play', this._handlePlayPause);
             this.audio.removeEventListener('ended', this._handleEnded);
+            clearInterval(this.interval);
         },
-
     };
 </script>

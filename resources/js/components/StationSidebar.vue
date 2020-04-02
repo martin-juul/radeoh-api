@@ -1,42 +1,51 @@
 <template>
-    <v-navigation-drawer
-        v-model="drawer"
-        app
-        clipped
-    >
-        <v-list dense v-for="station in stations" :key="station.slug">
-            <v-list-item link>
-                <v-list-item-action>
-                    <v-icon>mdi-view-dashboard</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>{{ station.title }}</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-        </v-list>
-    </v-navigation-drawer>
+  <v-content>
+    <v-list
+        v-for="station in stations"
+        :key="station.slug">
+
+      <v-list-item link @click="setStation(station.slug)">
+        <v-list-item-avatar v-if="station.image">
+          <v-img :src="station.image"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ station.title }}</v-list-item-title>
+        </v-list-item-content>
+
+      </v-list-item>
+
+    </v-list>
+  </v-content>
 </template>
 <script>
-    const formatTime = second => new Date(second * 1000).toISOString().substr(11, 8);
-    import axios from '../modules/axios';
+  import axios from '../modules/axios';
 
-    export default {
-        name: 'station-sidebar',
-        props: [''],
-        data() {
-            return {
-                stations: [],
-            };
-        },
+  export default {
+    name: 'station-sidebar',
+    props: [''],
+    data: () => ({
+      stations: [],
+    }),
+    methods: {
+      loadStations() {
+        axios.get('/api/stations')
+          .then((res) => this.stations = res.data)
+          .catch(console.error);
+      },
 
-        methods: {
-            _handleLoaded() {
-                console.debug('StationBrowser@_handleLoaded')
-                axios.get('/api/stations')
-                .then(console.log)
-                .catch(console.error);
-            }
-        },
+      setStation(slug) {
+        const station = this.stations.filter(x => x.slug === slug)[0];
+        this.$store.commit('setStation', station);
+      },
 
-    };
+      init() {
+        this.loadStations();
+      },
+    },
+
+    mounted() {
+      this.init();
+    },
+  };
 </script>
