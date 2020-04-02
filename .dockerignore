@@ -1,0 +1,11 @@
+# dirs
+.git
+.github
+node_modules/
+vendor/
+
+# files
+.env
+
+nova-components/**/node_modules/
+nova-components/**/vendor/

@@ -1,0 +1,10 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+    - plan: heroku-redis
+
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
