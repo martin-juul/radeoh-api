@@ -21,6 +21,7 @@ class CreateStationsTable extends Migration
             $table->text('language');
             $table->text('slug');
             $table->text('guide_id');
+            $table->text('m3u_url')->nullable();
             $table->text('image')->nullable();
 
 

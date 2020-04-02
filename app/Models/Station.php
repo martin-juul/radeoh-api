@@ -15,9 +15,12 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @property string $language
  * @property string $slug
  * @property string $guide_id
+ * @property string|null $m3u_url
  * @property string|null $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stream[] $streams
+ * @property-read int|null $streams_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AbstractModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station findSimilarSlugs($attribute, $config, $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station newModelQuery()
@@ -29,6 +32,7 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereM3uUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereUpdatedAt($value)
@@ -45,6 +49,7 @@ class Station extends AbstractModel
         'language',
         'slug',
         'guide_id',
+        'm3u_url',
         'image',
     ];
 
@@ -60,5 +65,10 @@ class Station extends AbstractModel
                 'source' => ['country_code', 'title'],
             ],
         ];
+    }
+
+    public function streams()
+    {
+        return $this->hasMany(Stream::class);
     }
 }

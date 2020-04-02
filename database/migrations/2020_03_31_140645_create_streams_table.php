@@ -14,9 +14,19 @@ class CreateStreamsTable extends Migration
     public function up()
     {
         Schema::create('streams', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->uuid('id')->primary();
+
+            $table->uuid('station_id');
+            $table->foreign('station_id')
+                ->references('id')->on('stations')
+                ->deferrable()
+                ->cascadeOnDelete();
+
+            $table->text('stream_url');
+
+            $table->timestampsTz();
         });
+        set_uuid_generate('streams');
     }
 
     /**
