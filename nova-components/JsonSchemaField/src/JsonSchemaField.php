@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Citadel\JsonSchemaField;
+namespace MartinJuul\JsonSchemaField;
 
 use Laravel\Nova\Fields\Code;
 

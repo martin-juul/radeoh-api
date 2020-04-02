@@ -1,6 +1,6 @@
 <?php
 
-namespace Citadel\JsonSchemaField;
+namespace MartinJuul\JsonSchemaField;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;

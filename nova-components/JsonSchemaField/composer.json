@@ -1,5 +1,5 @@
 {
-    "name": "citadel/json-schema-field",
+    "name": "martin-juul/json-schema-field",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
@@ -17,7 +17,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Citadel\\JsonSchemaField\\FieldServiceProvider"
+                "MartinJuul\\JsonSchemaField\\FieldServiceProvider"
             ]
         }
     },
