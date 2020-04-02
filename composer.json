@@ -4,7 +4,7 @@
     "description": "API layer for Radeoh",
     "license": "proprietary",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4.4",
         "ext-igbinary": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "genealabs/laravel-model-caching": "*",
         "guzzlehttp/guzzle": "^6.3",
+        "heroku/heroku-buildpack-php": "^173.0",
         "laravel/framework": "^7.0",
         "laravel/horizon": "^4.1",
         "laravel/nova": "~3.0",
