@@ -27,6 +27,7 @@ class StationResource extends JsonResource
             'country' => $this->country_code,
             'lang'    => $this->language,
             'image'   => $this->image,
+            'streams' => StreamResource::collection($this->whenLoaded('streams')),
         ];
     }
 }
