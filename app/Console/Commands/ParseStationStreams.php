@@ -36,6 +36,7 @@ class ParseStationStreams extends Command
         Station::query()->chunk(50, static function ($stations) {
             foreach ($stations as $station) {
                 $stream = Http::get($station->m3u_url)->body();
+                $stream = trim(strip_tags($stream));
 
                 if (is_array($stream)) {
                     $stream = Arr::first($stream);

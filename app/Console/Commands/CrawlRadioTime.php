@@ -52,7 +52,7 @@ class CrawlRadioTime extends Command
                 'language'     => 'Danish',
                 'guide_id'     => $station['guide_id'],
                 'image'        => $station['image'],
-                'm3u_url'      => $station['URL'],
+                'm3u_url'      => trim(strip_tags($station['URL'])),
             ]);
 
             $model->saveOrFail();
