@@ -33,7 +33,7 @@ class ParseStationStreams extends Command
     {
         $this->info('Parsing urls. Please wait..');
 
-        Station::query()->chunk(50, static function ($stations) {
+        Station::query()->chunk(50, function ($stations) {
             foreach ($stations as $station) {
                 $stream = Http::get($station->m3u_url)->body();
                 $stream = trim(strip_tags($stream));
@@ -47,9 +47,17 @@ class ParseStationStreams extends Command
                 }
 
                 // HACK: Fix Danish DR channels
-                if (Str::contains($stream, 'live-icy.gss.dr.dk')) {
-                    $path = Str::after($stream, 'live-icy.gss.dr.dk');
+                if (Str::contains($stream, 'http://live-icy.gss.dr.dk')) {
+                    $path = Str::after($stream, 'http://live-icy.gss.dr.dk');
                     $stream = 'https://live-icy.dr.dk' . $path;
+                }
+
+                $dupes = explode("\n", $stream);
+                if (is_array($dupes)) {
+                    $dupesAsJson = json_encode($dupes, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+                    $stream = $dupes[0];
+
+                    $this->info("Found dupe or unexpected line terminator. Normalizing: $dupesAsJson => $stream");
                 }
 
                 $station->streams()->firstOrCreate([
