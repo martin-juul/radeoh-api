@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class ParseRadioTimeHls extends Command
+class ParseStationStreams extends Command
 {
     /**
      * The name and signature of the console command.
