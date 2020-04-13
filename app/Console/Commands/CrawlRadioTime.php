@@ -21,26 +21,17 @@ class CrawlRadioTime extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Crawl Radio Time (currently only DK->Odense)';
 
     /**
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Throwable
      */
     public function handle()
     {
-        $url = "http://opml.radiotime.com/Browse.ashx?c=local&render=json";
+        $url = 'http://opml.radiotime.com/Browse.ashx?id=r101683&render=json';
         $res = Http::get($url);
 
         $stations = Arr::get($res->json(), 'body')[0];
