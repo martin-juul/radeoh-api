@@ -31,22 +31,26 @@ class ParseRadioTimeHls extends Command
      */
     public function handle()
     {
-        $stations = Station::all();
+        $this->info('Parsing urls. Please wait..');
 
-        foreach ($stations as $station) {
-            $stream = Http::get($station->m3u_url)->body();
+        Station::query()->chunk(50, static function ($stations) {
+            foreach ($stations as $station) {
+                $stream = Http::get($station->m3u_url)->body();
 
-            if (is_array($stream)) {
-                $stream = Arr::first($stream);
+                if (is_array($stream)) {
+                    $stream = Arr::first($stream);
+                }
+
+                if (Str::endsWith($stream, '.m3u')) {
+                    $stream = Str::before($stream, '.m3u');
+                }
+
+                $station->streams()->firstOrCreate([
+                    'stream_url' => $stream,
+                ]);
             }
+        });
 
-            if (Str::endsWith($stream, '.m3u')) {
-                $stream = Str::beforeLast($stream, '.m3u');
-            }
-
-            $station->streams()->firstOrCreate([
-                'stream_url' => $stream,
-            ]);
-        }
+        $this->info('Done..');
     }
 }
