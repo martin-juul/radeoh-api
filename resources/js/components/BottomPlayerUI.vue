@@ -30,12 +30,6 @@
                             <v-icon v-else>pause</v-icon>
                         </v-btn>
 
-                        <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
-                            <v-btn icon>
-                                <v-icon>pause</v-icon>
-                            </v-btn>
-                        </v-list-item-icon>
-
                     </v-list-item>
                 </v-list>
             </v-card>
