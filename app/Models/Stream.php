@@ -12,6 +12,7 @@ use App\Models\AbstractModel;
  * @property string $stream_url
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Station $station
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AbstractModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Stream newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Stream newQuery()
