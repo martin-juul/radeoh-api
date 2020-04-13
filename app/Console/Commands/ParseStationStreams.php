@@ -46,6 +46,12 @@ class ParseStationStreams extends Command
                     $stream = Str::before($stream, '.m3u');
                 }
 
+                // HACK: Fix Danish DR channels
+                if (Str::contains($stream, 'live-icy.gss.dr.dk')) {
+                    $path = Str::after($stream, 'live-icy.gss.dr.dk');
+                    $stream = 'https://live-icy.dr.dk' . $path;
+                }
+
                 $station->streams()->firstOrCreate([
                     'stream_url' => $stream,
                 ]);
