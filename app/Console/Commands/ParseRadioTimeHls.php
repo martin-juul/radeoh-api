@@ -15,14 +15,14 @@ class ParseRadioTimeHls extends Command
      *
      * @var string
      */
-    protected $signature = 'radiotime:parse-m3u';
+    protected $signature = 'stations:parse-streams';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Parses streams belonging to known stations.';
 
     /**
      * Execute the console command.
