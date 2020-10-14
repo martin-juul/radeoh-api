@@ -14,29 +14,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $stations = Station::whereHas('streams')->get();
+
         return view('spa', [
             'title'    => 'Radeoh',
-            'stations' => StationResource::collection(Station::get()),
+            'stations' => StationResource::collection($stations),
         ]);
     }
 
-    public function showRoutes()
-    {
-        $middlewareClosure = function ($middleware) {
-            return $middleware instanceof \Closure ? 'Closure' : $middleware;
-        };
-
-        $routes = collect(\Route::getRoutes());
-
-        foreach (config('dev-route-explorer.hide_matching') as $regex) {
-            $routes = $routes->filter(function ($value, $key) use ($regex) {
-                return !preg_match($regex, $value->uri());
-            });
-        }
-
-        return view('dev.route-explorer', [
-            'routes'            => $routes,
-            'middlewareClosure' => $middlewareClosure,
-        ]);
+    public function docs() {
+        return response(\File::get(public_path('docs/index.html')));
     }
 }
