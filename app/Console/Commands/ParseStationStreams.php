@@ -10,12 +10,14 @@ use Illuminate\Support\Str;
 
 class ParseStationStreams extends Command
 {
+    public const SIGNATURE = 'stations:parse-streams';
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'stations:parse-streams';
+    protected $signature = self::SIGNATURE;
 
     /**
      * The console command description.
@@ -33,7 +35,7 @@ class ParseStationStreams extends Command
     {
         $this->info('Parsing urls. Please wait..');
 
-        Station::query()->chunk(50, function ($stations) {
+        Station::query()->chunk(5, function ($stations) {
             foreach ($stations as $station) {
                 $stream = Http::get($station->m3u_url)->body();
                 $stream = trim(strip_tags($stream));
@@ -54,10 +56,15 @@ class ParseStationStreams extends Command
 
                 $dupes = explode("\n", $stream);
                 if (is_array($dupes)) {
-                    $dupesAsJson = json_encode($dupes, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+                    $dupesAsJson = json_encode($dupes, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
                     $stream = $dupes[0];
 
                     $this->info("Found dupe or unexpected line terminator. Normalizing: $dupesAsJson => $stream");
+                }
+
+                if (!filter_var($stream, FILTER_VALIDATE_URL)) {
+                    $this->warn("Invalid stream {$stream}");
+                    return;
                 }
 
                 $station->streams()->firstOrCreate([
@@ -66,6 +73,6 @@ class ParseStationStreams extends Command
             }
         });
 
-        $this->info('Done..');
+        return self::SUCCESS;
     }
 }
