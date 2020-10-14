@@ -26,7 +26,7 @@ return [
      * want to make sure your slugs aren't too long.
      */
 
-    'maxLength' => null,
+    'maxLength' => 260,
 
     /**
      * If you are setting a maximum length on your slugs, you may not want the
@@ -123,7 +123,17 @@ return [
      * and continue from there.
      */
 
-    'reserved' => null,
+    'reserved' => [
+        'api',
+        'admin',
+        'dashboard',
+        'create',
+        'update',
+        'delete',
+        'trash',
+        'user',
+        'password',
+    ],
 
     /**
      * Whether to update the slug value when a model is being
