@@ -21,22 +21,22 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stream[] $streams
  * @property-read int|null $streams_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AbstractModel disableCache()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station findSimilarSlugs($attribute, $config, $slug)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereCountryCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereGuideId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereLanguage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereM3uUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Station whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AbstractModel withCacheCooldownSeconds($seconds = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|AbstractModel disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|Station findSimilarSlugs($attribute, $config, $slug)
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station newModelQuery()
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station newQuery()
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereCountryCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereGuideId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereM3uUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AbstractModel withCacheCooldownSeconds($seconds = null)
  * @mixin \Eloquent
  */
 class Station extends AbstractModel
@@ -51,6 +51,8 @@ class Station extends AbstractModel
         'guide_id',
         'm3u_url',
         'image',
+        'subtext',
+        'bitrate'
     ];
 
     /**
