@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(StationUpdateJob::class)->twiceDaily();
+        $schedule->job(StationUpdateJob::class)->everyFifteenMinutes();
     }
 
     /**
