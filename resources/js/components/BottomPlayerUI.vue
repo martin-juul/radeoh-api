@@ -18,7 +18,7 @@
                             <v-img :src="station.image"></v-img>
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title>{{ station.title }} | <span>{{ station.subtext }}}</span>
+                            <v-list-item-title>{{ station.title }} | <span>{{ station.subtext }}</span>
                             </v-list-item-title>
                         </v-list-item-content>
 
@@ -126,9 +126,6 @@
                 if (this.playing) return;
                 this.audio.play().then(_ => {
                     this.nowPlaying = true;
-                    this.interval = setInterval(() => {
-                        this.getNowPlaying();
-                    }, 5000);
                 });
                 this.paused = false;
             },
