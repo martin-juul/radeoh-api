@@ -20,4 +20,11 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
+    'tunein' => [
+        'partner_ids' => [
+            '16',
+            'yvcOjvJP',
+            'ze_q2*uy',
+        ]
+    ]
 ];
