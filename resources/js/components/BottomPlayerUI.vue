@@ -18,7 +18,7 @@
                             <v-img :src="station.image"></v-img>
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title>{{ station.title }} | <span>{{ this.nowPlaying }}</span>
+                            <v-list-item-title>{{ station.title }} | <span>{{ station.subtext }}}</span>
                             </v-list-item-title>
                         </v-list-item-content>
 
@@ -114,18 +114,6 @@
                 if (stream) {
                     return stream.toString();
                 }
-            },
-
-            getNowPlaying() {
-                axios.get('/api/nowplaying', {
-                    params: {
-                        slug: this.$store.state.station.slug,
-                    },
-                }).then((res) => {
-                    console.debug('getNowPlaying', res);
-                    this.nowPlaying = res.data.track;
-                })
-                    .catch(console.error);
             },
 
             stop() {
