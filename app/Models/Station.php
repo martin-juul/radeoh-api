@@ -19,6 +19,8 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @property string|null $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $subtext
+ * @property string|null $bitrate
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stream[] $streams
  * @property-read int|null $streams_count
  * @method static \Illuminate\Database\Eloquent\Builder|AbstractModel disableCache()
@@ -26,6 +28,7 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station newModelQuery()
  * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station newQuery()
  * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|Station query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereBitrate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereCountryCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereGuideId($value)
@@ -34,6 +37,7 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereLanguage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereM3uUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Station whereSubtext($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Station whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AbstractModel withCacheCooldownSeconds($seconds = null)
