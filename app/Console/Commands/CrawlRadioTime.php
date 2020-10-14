@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Http;
 
 class CrawlRadioTime extends Command
 {
+    public const SIGNATURE = 'crawl:radio-time';
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'crawl:radio-time';
+    protected $signature = self::SIGNATURE;
 
     /**
      * The console command description.
@@ -38,16 +40,32 @@ class CrawlRadioTime extends Command
         $stations = Arr::get($stations, 'children');
 
         foreach ($stations as $station) {
-            if ($station['item'] !== 'station') {
+            if (Arr::get($station, 'item') !== 'station') {
                 continue;
             }
 
-            if (Station::whereGuideId($station['guide_id'])->exists()) {
+            $guideId = Arr::get($station, 'guide_id');
+            if (!$guideId) {
+                continue;
+            }
+
+            if (Station::whereGuideId($guideId)->exists()) {
+                $bitrate = Arr::get($station, 'bitrate');
+                $subtext = Arr::get($station, 'subtext');
+
+                if ($subtext) {
+                    Station::whereGuideId($guideId)
+                        ->update([
+                            'bitrate' => $bitrate,
+                            'subtext' => $subtext,
+                        ]);
+                }
+
                 continue;
             }
 
             $model = Station::make([
-                'title'        => $station['text'],
+                'title'        => Arr::get($station, 'text'),
                 'country_code' => 'DK',
                 'language'     => 'Danish',
                 'guide_id'     => $station['guide_id'],
