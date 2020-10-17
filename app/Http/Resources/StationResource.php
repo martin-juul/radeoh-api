@@ -3,8 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\Traits\ApplyJsonEncodingOptions;
-use App\Models\Stream;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 
 /**
  * @mixin \App\Models\Station
@@ -30,22 +30,9 @@ class StationResource extends JsonResource
             'image'   => $this->image,
             'subtext' => $this->subtext,
             'bitrate' => $this->bitrate,
-            'streams' => $this->whenLoaded('streams', $this->streamsToList($this->streams)),
+            'streams' => $this->whenLoaded('streams',
+                Arr::flatten(StreamResource::collection($this->whenLoaded('streams')))
+            ),
         ];
-    }
-
-    /**
-     * @param Stream[] $streams
-     * @return array
-     */
-    protected function streamsToList(array $streams): array
-    {
-        $list = [];
-
-        foreach ($streams as $stream) {
-            $list[] = $stream->stream_url;
-        }
-
-        return $list;
     }
 }
