@@ -46,6 +46,7 @@
             canPlay: {
                 type: Function,
                 default: () => {
+                    this.play();
                 },
             },
             color: {

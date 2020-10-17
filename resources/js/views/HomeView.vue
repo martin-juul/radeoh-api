@@ -15,7 +15,6 @@
             <!-- Provides the application the proper gutter -->
             <v-container fluid>
 
-                <!-- If using vue-router -->
                 <station-sidebar></station-sidebar>
             </v-container>
 
@@ -27,31 +26,19 @@
 </template>
 
 <script>
-    import VueAudio from '../components/AudioPlayer';
-    import StationSidebar from '../components/StationSidebar';
-    import BottomPlayerUi from '../components/BottomPlayerUI';
+import VueAudio from '../components/AudioPlayer';
+import StationSidebar from '../components/StationSidebar';
+import BottomPlayerUi from '../components/BottomPlayerUI';
 
-    export default {
-        data: () => ({
+export default {
+    components: {
+        BottomPlayerUi,
+        StationSidebar,
+        VueAudio,
+    },
 
-        }),
-
-        components: {
-            BottomPlayerUi,
-            StationSidebar,
-            VueAudio,
-        },
-
-        methods: {
-
-        },
-
-        created() {
-            this.$vuetify.theme.dark = true;
-        },
-
-        mounted() {
-            // this.init();
-        }
-    };
+    created() {
+        this.$vuetify.theme.dark = true;
+    },
+};
 </script>

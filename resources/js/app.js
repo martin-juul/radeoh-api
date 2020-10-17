@@ -5,13 +5,11 @@ import 'vuetify/dist/vuetify.css';
 import router from './router';
 import store from './store';
 
-const opts = {};
 Vue.use(Vuetify);
-
 
 new Vue({
   el: '#app',
-  vuetify: new Vuetify(opts),
+  vuetify: new Vuetify(),
   router,
   store,
 });

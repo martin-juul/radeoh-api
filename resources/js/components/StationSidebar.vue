@@ -35,7 +35,11 @@
       },
 
       setStation(slug) {
-        const station = this.stations.filter(x => x.slug === slug)[0];
+        const station = this.stations.filter((x) =>
+            x.slug === slug &&
+            x.hasOwnProperty('stream_url') &&
+            x.stream_url !== undefined
+        )[0];
         this.$store.commit('setStation', station);
       },
 

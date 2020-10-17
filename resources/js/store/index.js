@@ -11,7 +11,9 @@ export default new Vuex.Store({
       country: null,
       lang: null,
       image: null,
-      streams: [],
+      subtext: null,
+      bitrate: null,
+      stream_url: null,
     },
   },
   mutations: {
