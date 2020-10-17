@@ -55,6 +55,18 @@ class ParseStationStreams extends Command
                     $stream = 'https://live-icy.dr.dk' . $path;
                 }
 
+                // HACK: Remove planetradio redirect
+                if (Str::contains($stream, 'https://tx.planetradio.co.uk')) {
+                    if (!Str::contains('bauerdk', $stream)) {
+                        return;
+                    }
+                    $raw = Str::after($stream, 'https://tx.planetradio.co.uk/');
+                    $host = Str::after($raw, 'http_');
+                    $stream = Str::replaceFirst('_', '-', $host);
+                    $stream = Str::replaceFirst('bauerdk', 'bauer.dk', $stream);
+                    $stream = "https://{$stream}";
+                }
+
                 $dupes = explode("\n", $stream);
                 if (is_array($dupes)) {
                     $dupesAsJson = json_encode($dupes, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
