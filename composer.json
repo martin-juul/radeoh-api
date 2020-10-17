@@ -22,7 +22,7 @@
         "laravel/horizon": "^4.1",
         "laravel/tinker": "^2.0",
         "mpociot/laravel-apidoc-generator": "^4.8",
-        "sentry/sentry-laravel": "^2.1.1",
+        "sentry/sentry-laravel": "^2.1",
         "spatie/enum": "^2.3"
     },
     "require-dev": {
