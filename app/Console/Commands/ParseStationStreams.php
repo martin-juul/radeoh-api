@@ -36,6 +36,7 @@ class ParseStationStreams extends Command
         $this->info('Parsing urls. Please wait..');
 
         Station::query()->chunk(5, function ($stations) {
+            /** @var Station $station */
             foreach ($stations as $station) {
                 $stream = Http::get($station->m3u_url)->body();
                 $stream = trim(strip_tags($stream));
@@ -67,7 +68,10 @@ class ParseStationStreams extends Command
                     return;
                 }
 
-                $station->streams()->firstOrCreate([
+                $station->streams()->delete();
+
+
+                $station->streams()->create([
                     'stream_url' => $stream,
                 ]);
             }
