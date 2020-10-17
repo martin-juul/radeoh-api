@@ -14,15 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $stations = Station::whereHas('streams')->get();
+        $stations = Station::query()->get();
 
         return view('spa', [
             'title'    => 'Radeoh',
             'stations' => StationResource::collection($stations),
         ]);
-    }
-
-    public function docs() {
-        return response(\File::get(public_path('docs/index.html')));
     }
 }
