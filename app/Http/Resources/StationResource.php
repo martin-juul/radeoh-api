@@ -3,8 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\Traits\ApplyJsonEncodingOptions;
+use App\Models\Stream;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Arr;
 
 /**
  * @mixin \App\Models\Station
@@ -31,11 +31,12 @@ class StationResource extends JsonResource
             'subtext'    => $this->subtext,
             'bitrate'    => $this->bitrate,
             'stream_url' => $this->whenLoaded('streams', function () {
-                if (!$this->streams_count) {
+                $stream = $this->streams()->first();
+                if (!$stream || ($stream instanceof Stream && !$stream->stream_url)) {
                     return null;
                 }
 
-                return $this->streams->first()->stream_url;
+                return $stream->stream_url;
             }),
         ];
     }
