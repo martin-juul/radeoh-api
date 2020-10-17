@@ -30,9 +30,7 @@ class StationResource extends JsonResource
             'image'   => $this->image,
             'subtext' => $this->subtext,
             'bitrate' => $this->bitrate,
-            'streams' => $this->whenLoaded('streams',
-                Arr::flatten(StreamResource::collection($this->whenLoaded('streams')))
-            ),
+            $this->whenLoaded('streams', fn() => new StreamResource($this->streams->first)),
         ];
     }
 }
